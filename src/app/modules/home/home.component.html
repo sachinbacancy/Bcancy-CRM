@@ -1,1 +1,24 @@
-<p>home works!</p>
+<div class="site-main">
+    <!-- <%= render 'layouts/sidebar'%> -->
+    <app-sidebar></app-sidebar>
+    <p>scdcdwcwcwcecefcece</p>
+    <div class="site-content">
+      <div class="dynmic-tab-div">
+        <div class="row dashboard-page">
+          <div class="col-sm-12">
+            <div class="dynmic-tab-div-header">
+              <div class="heading dashboard_toggle cursor-pointer">DASHBOARD</div>
+            </div>
+            <div class="dynmic-tab-div-data">
+              <%# if current_user.role.try(:name) == 'Sales' %>
+                <%#= render partial: 'sales_dashboard' %>
+              <%# else %>
+                <%= render partial: 'dashboard_menu' %>
+              <%# end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

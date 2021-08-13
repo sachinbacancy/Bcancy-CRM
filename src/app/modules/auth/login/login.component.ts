@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,42 @@ import { SocialAuthService, GoogleLoginProvider } from 'angularx-social-login';
 })
 export class LoginComponent implements OnInit {
   
+  public socialUser: SocialUser;
+  public isLoggedin : boolean = false;
+
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      this.isLoggedin = (user != null);
+      console.log(this.socialUser);
+    });
   }
 
   constructor(private router: Router,
-    private socialAuthService: SocialAuthService) {
+              private socialAuthService: SocialAuthService,
+              private authService: AuthService) {
   }
 
-  public signIn(){
+  public signInWithGoogle(){
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-    .then(() => this.router.navigate(['home']));
+    .then(() => 
+      {
+        this.validateUser();
+      });
   }
 
+  private validateUser(){
+    if(this.socialUser){
+      this.authService.loginUser(this.socialUser.email).subscribe(resData =>{
+        console.log(resData);
+        sessionStorage.setItem('userData', JSON.stringify(resData));
+        this.router.navigate(['home']);
+      },
+      (error)=>{
+        this.router.navigate['/auth/invalid-email'];
+        console.log(error);
+      });
+    }
+  }
 }
+

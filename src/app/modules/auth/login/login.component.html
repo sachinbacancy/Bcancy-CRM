@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bacancy CRM</title>
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="wkJwHuYeWgkxIV8MmheqG+TtT/ZmG7pioCd98bN0DNnrvy5TbYPDsVCJVgMJSNzJY4ZzXjvRDsd59QjDGPORdg==" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <link rel="stylesheet" media="all" href="/assets/registration.css" data-turbolinks-track="reload" />
+    <link rel="icon" type="image/png" href="/assets/launcher.png" />
+    <script src="/assets/registration.js" data-turbolinks-track="reload"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="layout-flash-container"></div>
+    <div class='flash-messages' id="flash-msg">
+      <div class="alert alert-notice">
+        <button type="button" 
+                class="close" 
+                data-dismiss="alert" 
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Signed out successfully.
+      </div>  
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        $(".flash-messages").delay(2000).slideUp(1000).fadeOut();
+      });
+    </script>
+
+    <div id="wrapper">
+      <section>
+        <div>
+          <div class="row row-eq-height">
+            <div class="col-lg-4 col-md-5 col-sm-12 text-center pad-0">
+              <div class="login-left-back">
+                <p class="login-left-first-p">Bacancy CRM</p>
+                <p class="login-left-second-p">A powerful, yet easy-to-use application for managing our customers.</p>
+                <div class="login-left-wrapper">
+                  <img class="login-left-img" src="/assets/launcher.png" />
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-7 col-sm-12 pad-0">
+              <div class="container-login-center">
+                <div class="login-wrapper">
+                  <div class="login-cmn-wrapper text-center">
+                    <p class="sign-title"></p>
+                    <div class="row">
+                      <a class="btn btn-block btn-lg btn-rounded btn-googleplus" (click)="signIn()">
+                        <i class="fa fa-google-plus fa-fw"></i> Sign in with Google
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="position: absolute; bottom: 25px; width: 100%">
+                  <div class="col-md-6 text-center dark-gray-font">Version 2.1</div>
+                  <div class="col-md-6 text-center dark-gray-font">Copyright © 2021 Bacancy CRM All rights reserved.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

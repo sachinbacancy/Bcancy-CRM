@@ -1,0 +1,163 @@
+<div class="site-content">
+    <div class="site-content-head">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="l-menu">
+            <span class= "main-menu-sitecontent "> Leads </span>
+             <!--<a class="main-menu-sitecontent" href="/leads"> All </a>-->
+          </div>
+          <div class="pull-right">
+              <a href="javascript:void(0)" class="site-content-head-btn" id='destroy_all'>Delete</a>
+              <a href="javascript:void(0)" class="site-content-head-btn" id='assign_all'>Assign</a>
+
+              <a class="site-content-head-btn" data-remote="true" href="/leads/new">
+                + Add New Leads
+</a>
+              <a class="site-content-head-btn" href="/leads/import_leads">
+                Import
+</a>          
+            <a class="site-content-head-btn" href="/leads.csv">
+              Export To Excel
+</a>            
+            <!-- <a href="" class="site-content-head-btn">Import Leads</a> -->
+            <!-- <a href="" class="site-content-head-btn">Export To Excel</a> -->
+            
+              <a class="site-content-head-btn" href="http://staging-crm.bacancy.com/sample_format.csv">Sample CSV</a>
+              <a href="javascript:void(0)" class="dropdown-toggle site-content-head-btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="nav-cell blue-font"> Action
+                  <span class="caret"></span>
+                </span>
+              </a>
+              <ul class="dropdown-menu">
+             <!--    <li>
+                </li> -->
+                <li>
+                 <a class="dropdown-item" href="/settings/module?klass_id=1">Edit Properties</a>
+                </li>
+              </ul>
+            <!-- <a href="" class="site-content-head-btn">Actions</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="site-content-data">
+            <div id="lead-list" class="table-list">
+              
+<div class="site-content-head" style="padding: 9px;margin-bottom:4%">Total Number of rows: <span id="count"></span></div><br/>
+<div class="table-responsive">
+  <table id="ajax-datatable-leads"
+       class="common-data-table table table-striped table-bordered display responsive no-wrap dataTable no-footer dtr-inline"
+       data-ajax-datatable="true"
+       data-ajax-datatable-url="/leads"
+       data-ajax-datatable-fields="[{&quot;data&quot;:&quot;date&quot;},{&quot;data&quot;:&quot;source&quot;},{&quot;data&quot;:&quot;client_name&quot;},{&quot;data&quot;:&quot;client_email&quot;},{&quot;data&quot;:&quot;corporate&quot;},{&quot;data&quot;:&quot;phone_no&quot;},{&quot;data&quot;:&quot;skype&quot;},{&quot;data&quot;:&quot;chat_description&quot;},{&quot;data&quot;:&quot;technology&quot;},{&quot;data&quot;:&quot;landing_page_url&quot;},{&quot;data&quot;:&quot;country&quot;},{&quot;data&quot;:&quot;state&quot;},{&quot;data&quot;:&quot;city&quot;},{&quot;data&quot;:&quot;user_id&quot;},{&quot;data&quot;:&quot;is_closed&quot;},{&quot;data&quot;:&quot;closed_date&quot;},{&quot;data&quot;:&quot;lead_status&quot;}]"
+       data-ajax-datatable-default-search="[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]"
+       style="width: 100%;">
+  <thead>
+    <th>
+      <div class="radio-lbl">
+        <label class="check">
+          <input type="checkbox" id="check-all">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </th>
+    <th class="action">Action</th>
+      <th data-ajax-datatable-column-type="Date">Date</th>
+      <th data-ajax-datatable-column-type="Picklist">Source</th>
+      <th data-ajax-datatable-column-type="Text">Client Name</th>
+      <th data-ajax-datatable-column-type="Text">Client Email</th>
+      <th data-ajax-datatable-column-type="Radio Button">Corporate</th>
+      <th data-ajax-datatable-column-type="Text">Client Phone No</th>
+      <th data-ajax-datatable-column-type="Skype">Client Skype</th>
+      <th data-ajax-datatable-column-type="Text Area HTML">Client-Chat Description</th>
+      <th data-ajax-datatable-column-type="Picklist">Technology</th>
+      <th data-ajax-datatable-column-type="URL">Landing Page Url</th>
+      <th data-ajax-datatable-column-type="Static DropDown">Country</th>
+      <th data-ajax-datatable-column-type="Static DropDown">State</th>
+      <th data-ajax-datatable-column-type="Static DropDown">City</th>
+      <th data-ajax-datatable-column-type="Picklist">Assign To</th>
+      <th data-ajax-datatable-column-type="Radio Button">Is Closed</th>
+      <th data-ajax-datatable-column-type="Date">Closed Date</th>
+      <th data-ajax-datatable-column-type="Picklist">Status</th>
+  </thead>
+  <tbody class='list-body'>
+  </tbody>
+</table>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+   
+  $('#count').text("0")
+    $(document).trigger('ajax-datatable:reload');
+
+    $('#check-all').on('change', function() {
+      $('.list-body .check').prop('checked', $(this).prop('checked'));
+    });
+
+    $('#destroy_all').on('click', function() {
+      let checked = [];
+      $("input[name='ids[]']:checked").each(function () {
+        checked.push(parseInt($(this).val()));
+      });
+      if(checked == 0) {
+        confirm("Please select a Lead.");
+      } else {
+        if(confirm('Are you sure you want to Delete selected Leads?')) {
+          $.ajax({
+            url: "/leads/destroy_all",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            type: 'DELETE',
+            data: {
+              ids: checked
+            },
+            dataType: "script",
+            success: function(result){
+            }
+          });
+        }
+      }
+    });
+  });
+</script>
+
+            </div>
+          </div>
+       </div>
+    </div>
+    <div id="modalContainer" class=''></div>
+    <div id="importfiled"></div>
+    <div id='modalContainerCenter'></div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+  
+    $(".dropdown-toggle").dropdown();
+    $('#assign_all').on('click', function(){
+      var checked = [];
+      $("input[name='lead_ids[]']:checked").each(function ()
+      {
+        checked.push(parseInt($(this).val()));
+      });
+      if(checked == 0){
+        confirm("Please select a Lead.");
+      }else{
+        $.ajax({
+          url: "/leads/assign_all",
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          type: 'GET',
+          data: {
+            ids: checked
+          },
+          dataType: "script",
+          success: function(result){
+          }
+        });
+      }
+    });
+  });
+</script>

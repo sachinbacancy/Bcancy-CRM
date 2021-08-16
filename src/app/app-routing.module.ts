@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full'},
@@ -12,13 +12,17 @@ const routes: Routes = [
     loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule)
   },
   {
-    path: "layouts",
-    loadChildren: () => import("./layouts/layouts.module").then(m => m.LayoutsModule)
+    path: "leads",
+    loadChildren: () => import("./modules/leads/leads.module").then(m => m.LeadsModule)
   },
+  {
+    path: "settings",
+    loadChildren: () => import("./modules/settings/settings.module").then(m => m.SettingsModule)
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

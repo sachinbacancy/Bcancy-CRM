@@ -21,9 +21,7 @@ export class AuthService {
   
   public loginUser(email: string) {
     console.log(email);
-
     return this.http.post(environment.baseURL+"api/v1/sessions",{email:email});
-    //return this.http.post(environment.baseURL+"api/v1/sessions?email="+email,{abc:"abc"});
   }
 
   public autoLogin() {

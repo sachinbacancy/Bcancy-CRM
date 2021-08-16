@@ -21,4 +21,17 @@ export class HomeComponent implements OnInit {
     this.socialAuthServive.signOut().then(() => this.router.navigate(['auth']));
   }
 
+
+/*   <div id='flash_container'>
+  <div class='flash-messages' id="flash-msg">
+<div class="alert alert-notice">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+Successfully authenticated from Google account.
+</div>  </div>
+<script>
+$(document).ready(function(){
+$(".flash-messages").delay(2000).slideUp(1000).fadeOut();
+});
+</script>
+ */
 }

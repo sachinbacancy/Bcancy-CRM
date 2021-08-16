@@ -42,8 +42,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
       },
       (error)=>{
-        this.router.navigate['/auth/invalid-email'];
-        console.log(error);
+        switch(error.status){
+        case 400:
+          this.router.navigateByUrl('/auth/invalid-email');
+        }
       });
     }
   }

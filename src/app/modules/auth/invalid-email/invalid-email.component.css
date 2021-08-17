@@ -4,7 +4,11 @@
     color: #2E2F30;
     text-align: center;
     font-family: arial, sans-serif;
+    width: 100%;
+    height: 100%;
     margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .rails-default-error-page div.dialog {

@@ -22,7 +22,6 @@ export class SidebarComponent implements OnInit {
   }
 
   public onSelectingLead(){
-    console.log(sessionStorage.getItem('userData'));
     this.router.navigateByUrl('/leads');
   }
 

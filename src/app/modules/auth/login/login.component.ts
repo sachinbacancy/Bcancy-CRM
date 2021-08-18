@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { AuthService } from 'src/app/services/auth.service';
+import { LeadsService } from 'src/app/services/leads.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private socialAuthService: SocialAuthService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private leadsService: LeadsService) {
   }
 
   public signInWithGoogle(){
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
     if(this.socialUser){
       this.authService.loginUser(this.socialUser.email).subscribe(resData =>{
         console.log(resData);
+        this.leadsService.user.next(resData);
         sessionStorage.setItem('userData', JSON.stringify(resData));
         this.router.navigate(['home']);
       },

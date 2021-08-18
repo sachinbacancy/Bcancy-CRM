@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  public user =new BehaviorSubject<SocialUser>(null);
+  public socialUser = new BehaviorSubject<SocialUser>(null);
 
   constructor(private http: HttpClient, 
               private router: Router) {}
@@ -25,27 +25,27 @@ export class AuthService {
   }
 
   public autoLogin() {
-    const userData: SocialUser = JSON.parse(sessionStorage.getItem('userData'));
-    if (!userData) {
+    const socialUserData: SocialUser = JSON.parse(sessionStorage.getItem('socialUserData'));
+    if (!socialUserData) {
       return;
     }
-    if (userData) {
-      this.user.next(userData);
+    if (socialUserData) {
+      this.socialUser.next(socialUserData);
       this.router.navigate(['']);                
-      this.autoLogout(+userData.response['expires_in']);
+      this.autoLogout(+socialUserData.response['expires_in']);
     }
   }
 
   public logout(): void {
-    this.user.next(null);
+    this.socialUser.next(null);
     this.router.navigate(['/auth']);
-    sessionStorage.removeItem('userData');
+    sessionStorage.removeItem('socialUserData');
   }
 
   public autoLogout(expirationDuration: number):void{
     setTimeout(()=> {
-      sessionStorage.removeItem('userData');
-      this.user.next(null);
+      sessionStorage.removeItem('socialUserData');
+      this.socialUser.next(null);
       this.router.navigate(['/auth']);
     },expirationDuration);
   }

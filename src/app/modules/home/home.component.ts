@@ -9,7 +9,6 @@ import { SocialAuthService } from 'angularx-social-login';
 })
 export class HomeComponent implements OnInit {
 
-
   ngOnInit(): void {
   }
 

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LeadsInterceptor } from './interceptors/auth.interceptor';
+import { LeadsService } from '../services/leads.service';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
+  providers: [
+    LeadsService,
+    [
+      {provide: HTTP_INTERCEPTORS, useClass: LeadsInterceptor, multi: true},
+    ]
   ]
 })
 export class CoreModule { }

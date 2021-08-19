@@ -1,11 +1,13 @@
-<div class="site-main">
-    <%= render 'layouts/sidebar'%>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
     <div class="site-content">
       <div class="dynmic-tab-div">
         <div class="row">
           <div class="col-sm-12">
             <div class="dynmic-tab-div-header">
-              <%= link_to settings_path, class: "heading common-link"  do %> CRM Customization Settings <% end %>
+              <!-- <%= link_to settings_path, class: "heading common-link"  do %> CRM Customization Settings <% end %> -->
+              <a class="heading common-link"> CRM Customization Settings </a>
               <span class="sub-menu-sitecontent m-x-10"> <i class="fa fa-angle-right"></i> </span>
               <span class="sub-menu-sitecontent" > User Settings </span>
               <!--<%= link_to users_settings_path, class:"sub-menu-sitecontent"  do %> User Settings <% end %>-->
@@ -67,5 +69,4 @@
         </div>
       </div>
     </div>
-  </div>
   

@@ -3,7 +3,7 @@
   <div class="custom-scrollbar">
     <ul class="sidebar-menu">
       <li class="with-sub dropdown-none open active">
-        <a href="/" aria-haspopup="true">
+        <a  (click)="onSelectingDashboard()" aria-haspopup="true">
           <span class="menu-icon">
             <i class="fa" aria-hidden="true">
               <img src="/assets/sidebar/ic_dashboard.svg" />
@@ -13,7 +13,8 @@
         </a>
         <ul class="sidebar-submenu collapse">
           <li class="menu-subtitle menu-subtitle-nodropdown">
-            <a routerLink='dashboard'>Dashboard</a></li>
+            <a (click)="onSelectingDashboard()">Dashboard</a>
+          </li>
         </ul>
       </li>
 
@@ -29,7 +30,7 @@
           <ul class="sidebar-submenu collapse">
             <li class="menu-subtitle">Leads</li>
             <li>
-                <a routerLink="/leads" aria-haspopup="true" class="">
+                <a aria-haspopup="true" class="" (click)="onSelectingLead()">
                   <span class="menu-text">Lead</span>
                 </a>
             </li>
@@ -48,8 +49,8 @@
           <ul class="sidebar-submenu collapse">
             <li class="menu-subtitle">Settings</li>
             <li>
-              <a routerLink="/settings" aria-haspopup="true" class="">
-                <span class="menu-text"> CRM Settings</span>
+              <a aria-haspopup="true" class="" (click)="onSelectingSettings()">
+                <span class="menu-text">CRM Settings</span>
               </a>
             </li>
             <li></li>

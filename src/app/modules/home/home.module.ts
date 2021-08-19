@@ -6,8 +6,6 @@ import { HomeComponent } from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutsModule } from 'src/app/layouts/layouts.module';
 
-
-
 @NgModule({
   declarations: [
     HomeComponent,

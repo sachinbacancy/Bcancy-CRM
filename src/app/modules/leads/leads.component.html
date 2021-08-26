@@ -1,35 +1,47 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 <div class="site-main">
-<div class="site-content">
-  <div class="site-content-head"> 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="1-menu">
-           <span class="main-menu-sitecontent "> Leads </span>
-           <!--<a class="main-menu-sitecontent" href="/leads"› All </a>-->
-         </div>
-        <div class="pull-right">
-           <a href="javascript:void(0)_" class="site-content-head-btn" id="destroy_all">Delete 
-           </a>
-           <a href="javascript:void(0)_" class="site-content-head-btn" id="assign_all">Assign 
-           </a>
-           <a class="site-content-head-btn" data-remote="true" href="/leads/new"> + Add New 
-           Leads </a>
-           <a class="site-content-head-btn" href="/leads/import leads"> Import </a>
-           <a class="site-content-head-btn" href="jleads.csv"> Export To Excel </a>
-           <!-- <a href="" class="site-content-head-btn">Import Leads</a> -->
-           <!-- <a href="" class="site-content-head-btn">Export To Excel</a> -->
-           <a class="site-content-head-btn" href="http://staging-crm.bacancy.com/sample forma 
-           t.csv">Sample CSV</a>
-         <a href="javascript:void(0" class="dropdown-toggle site-content-head-btn" data- 
-         toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions</a>
-         <ul class="dropdown-menu">...</ul>
-           <!-- <a href="" class="site-content-head-btn">Actions</a> -->
-         </div> 
+  <div class="site-content">
+    <div class="site-content-head"> 
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="1-menu">
+            <span class="main-menu-sitecontent "> Leads </span>
+            <!--<a class="main-menu-sitecontent" href="/leads"› All </a>-->
+          </div>
+          <div class="pull-right">
+            <a href="javascript:void(0)_" class="site-content-head-btn" id="destroy_all"> Delete </a>
+            <a href="javascript:void(0)_" class="site-content-head-btn" id="assign_all"> Assign </a>
+            <a class="site-content-head-btn" data-remote="true" href="/leads/new"> + Add New Leads </a>
+            <a class="site-content-head-btn" href="/leads/import leads"> Import </a>
+            <a class="site-content-head-btn" href="jleads.csv"> Export To Excel </a>
+            <!-- <a href="" class="site-content-head-btn">Import Leads</a> -->
+            <!-- <a href="" class="site-content-head-btn">Export To Excel</a> -->
+            <a class="site-content-head-btn" href="http://staging-crm.bacancy.com/sample format.csv">Sample CSV</a>
+            <a 
+              href="javascript:void(0" 
+              class="dropdown-toggle site-content-head-btn" 
+              data-toggle="dropdown" 
+              role="button" 
+              aria-haspopup="true" 
+              aria-expanded="false">Actions</a>
+            <ul class="dropdown-menu">...</ul>
+            <!-- <a href="" class="site-content-head-btn">Actions</a> -->
+          </div> 
         </div>
       </div> 
     </div>
-    <div class="site-content-head" style="padding: 9px;margin-bottom:4%">Total Number of rows: {{leads.length}} <span id="count"></span></div><br/>
-</div>
+    <div class="site-content-head" >Total Number of rows: {{leads.length}} <span id="count"></span></div><br/>
+    <div class="table-responsive">
+      <ejs-grid #grid (actionBegin)="actionBegin($event)" (actionComplete)="actionComplete($event)" [dataSource]='leads' [allowPaging]='true' [allowFiltering]='true' [allowSelection]='true' [allowSorting]='true' [pageSettings]='pageSettings' [selectionSettings]='selectionSettings' [filterSettings]='filterOption' [editSettings]='editSettings' [toolbar]='toolbar' height="100%" width="100%"> 
+        <e-columns>
+          <e-column type='checkbox' width='50'></e-column>
+          <e-column headerText='Actions    ' width='110' [commands]='commands'></e-column>
+          <e-column *ngFor="let field of fieldOrder" [field]='field' [headerText]='getHeader(field)' width="200" minWidth='50' maxWidth="180">
+            <ejs-daterangepicker placeholder='Select a range' [startDate]='start' [endDate]='end'></ejs-daterangepicker>
+          </e-column>
+        </e-columns>
+      </ejs-grid>   
+    </div>
+  </div>
 </div>

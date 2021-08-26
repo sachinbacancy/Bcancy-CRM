@@ -27,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [{
+  providers: [
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: true, //keeps the user signed in

@@ -19,9 +19,10 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     SocialLoginModule,
     HttpClientModule,
-    LayoutsModule
+    LayoutsModule,
   ],
-  providers: [{
+  providers: [
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: true, //keeps the user signed in

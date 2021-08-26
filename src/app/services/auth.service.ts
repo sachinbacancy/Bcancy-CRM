@@ -23,6 +23,10 @@ export class AuthService {
     return this.http.post(environment.baseURL+"api/v1/sessions",{email:email});
   }
 
+  public updateUserData(formData, userId) {
+    return this.http.put(environment.baseURL+"api/v1/angular_user_apis/"+userId,formData);
+  }
+
   public autoLogin() {
     const socialUserData: SocialUser = JSON.parse(sessionStorage.getItem('socialUserData'));
     if (!socialUserData) {

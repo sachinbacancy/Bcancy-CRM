@@ -7,6 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { LayoutsModule } from './layouts/layouts.module';
 import { CoreModule } from './core/core.module';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     SocialLoginModule,
     HttpClientModule,
-    LayoutsModule
+    LayoutsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
 
   
   onSubmit() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
+   
     if (this.editForm.valid) {
         const formVal = this.editForm.value;
         const formData = new FormData();
@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
         this.authService.updateUserData(formData, this.user.data.id).subscribe({
           next: (result: any) => {
             console.log(result);
+            this.toastr.success('Hello world!', 'Toastr fun!');
           },
           error: err => {
             if (err.error && err.error.error) {

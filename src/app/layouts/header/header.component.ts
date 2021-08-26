@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
 
   
   logout(): void {
+    console.log('test');
     this.socialAuthServive.signOut().then(() => this.router.navigate(['/auth']));
   }
 

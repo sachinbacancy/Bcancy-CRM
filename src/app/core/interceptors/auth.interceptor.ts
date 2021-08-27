@@ -5,7 +5,7 @@ import { exhaustMap, take } from "rxjs/operators";
 import { LeadsService } from "src/app/services/leads.service";
 
 @Injectable()
-export class LeadsInterceptor implements HttpInterceptor{
+export class AuthInterceptor implements HttpInterceptor{
     constructor(private leadsService: LeadsService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {

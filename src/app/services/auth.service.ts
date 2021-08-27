@@ -14,17 +14,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, 
               private router: Router) {}
-
-  /* public addUser(user:UserModel): Observable<UserModel>{
-    return this.http.post<UserModel>(environment.baseURL+'register1',user);
-  } */
   
   public loginUser(email: string) {
     return this.http.post(environment.baseURL+"api/v1/sessions",{email:email});
   }
 
   public autoLogin() {
-    const socialUserData: SocialUser = JSON.parse(sessionStorage.getItem('socialUserData'));
+    const socialUserData: SocialUser = JSON.parse(localStorage.getItem('socialUserData'));
     if (!socialUserData) {
       return;
     }
@@ -38,12 +34,12 @@ export class AuthService {
   public logout(): void {
     this.socialUser.next(null);
     this.router.navigate(['/auth']);
-    sessionStorage.removeItem('socialUserData');
+    localStorage.removeItem('socialUserData');
   }
 
   public autoLogout(expirationDuration: number):void{
     setTimeout(()=> {
-      sessionStorage.removeItem('socialUserData');
+      localStorage.removeItem('socialUserData');
       this.socialUser.next(null);
       this.router.navigate(['/auth']);
     },expirationDuration);

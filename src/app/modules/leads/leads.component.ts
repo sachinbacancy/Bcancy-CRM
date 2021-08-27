@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommandModel, EditEventArgs, EditSettingsModel, FilterSettingsModel, GridComponent, PageSettingsModel, SaveEventArgs, SelectionSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
+import { CommandModel, DialogEditEventArgs, EditEventArgs, EditSettingsModel, FilterSettingsModel, GridComponent, PageSettingsModel, SaveEventArgs, SelectionSettingsModel, ToolbarItems, CellEditArgs } from '@syncfusion/ej2-angular-grids';
 import { LeadModel } from 'src/app/interfaces/lead.model';
+import { UserModel } from 'src/app/interfaces/user.model';
 import { LeadsService } from 'src/app/services/leads.service';
 
 @Component({
@@ -10,13 +11,13 @@ import { LeadsService } from 'src/app/services/leads.service';
 })
 export class LeadsComponent implements OnInit {
 
-  public user:any;
+  public user:UserModel;
   public leads: LeadModel[]=[];
   public fieldOrder: string[]=[];
   public editableField: string[]=[];
   public selectedEditableField: string[]=[];
-  public orderData: object;
-public editable: any[]=[];
+  public updatedData: object;
+  public editable: any[]=[];
 
   @ViewChild('grid') grid: GridComponent;
 
@@ -46,7 +47,7 @@ public editable: any[]=[];
   }
 
   public getLeads(){
-    this.user=JSON.parse(sessionStorage.getItem('userData'));
+    this.user=JSON.parse(localStorage.getItem('userData'));
     this.leadService.getLeads(this.user.data.id).subscribe(resData =>{
       console.log(resData);
 
@@ -69,6 +70,8 @@ public editable: any[]=[];
         this.selectedEditableField.push(selectedEditableField);
       });
       console.log(this.selectedEditableField);
+    },(error) =>{
+      console.log(error);
     });
   }
 
@@ -85,9 +88,8 @@ public editable: any[]=[];
     }
   }
 
-  actionBegin(args: EditEventArgs) { 
+  actionBegin(args) { 
     if (args.requestType === "beginEdit" || args.requestType === "add") { 
-      this.orderData = Object.assign({}, args.rowData);;
       this.grid.columns.forEach(element => {
         element.visible=false;
       });
@@ -107,10 +109,21 @@ public editable: any[]=[];
 
   actionComplete(args: SaveEventArgs) {
     if (args.requestType === 'save') {
+      this.updatedData = Object.assign({}, args.data);
+      console.log(this.updatedData);
+      this.leadService.updateRowData(this.updatedData,this.updatedData['id']).subscribe(resData=>{
+        console.log(resData);
+      });
       this.grid.columns.forEach(element => {
         element.visible=true;
       });
     }
   } 
+
+  cellEdit(args: CellEditArgs) {
+    if (args.value === 'France') {
+        args.cancel = true;
+    }
+  }
 
 }

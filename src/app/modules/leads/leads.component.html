@@ -33,7 +33,7 @@
     </div>
     <div class="site-content-head" >Total Number of rows: {{leads.length}} <span id="count"></span></div><br/>
     <div class="table-responsive">
-      <ejs-grid #grid (actionBegin)="actionBegin($event)" (actionComplete)="actionComplete($event)" [dataSource]='leads' [allowPaging]='true' [allowFiltering]='true' [allowSelection]='true' [allowSorting]='true' [pageSettings]='pageSettings' [selectionSettings]='selectionSettings' [filterSettings]='filterOption' [editSettings]='editSettings' [toolbar]='toolbar' height="100%" width="100%"> 
+      <ejs-grid #grid (actionBegin)="actionBegin($event)" (actionComplete)="actionComplete($event)" (cellEdit)="cellEdit($event)" [dataSource]='leads' [allowPaging]='true' [allowFiltering]='true' [allowSelection]='true' [allowSorting]='true' [pageSettings]='pageSettings' [selectionSettings]='selectionSettings' [filterSettings]='filterOption' [editSettings]='editSettings' [toolbar]='toolbar' height="100%" width="100%"> 
         <e-columns>
           <e-column type='checkbox' width='50'></e-column>
           <e-column headerText='Actions    ' width='110' [commands]='commands'></e-column>

@@ -1,9 +1,8 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpParams, HttpRequest } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { exhaustMap, take } from "rxjs/operators";
 import { LeadsService } from "src/app/services/leads.service";
-import { AuthService } from "../../services/auth.service";
 
 @Injectable()
 export class LeadsInterceptor implements HttpInterceptor{

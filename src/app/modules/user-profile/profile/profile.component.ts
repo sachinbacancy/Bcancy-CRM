@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { LeadsService } from 'src/app/services/leads.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,83 +11,65 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent implements OnInit {
   public user:any;
-  public editMode: boolean = false;
   editForm : FormGroup;
-  userData: any;
-  constructor(private authService: AuthService, private fb: FormBuilder,private toastr: ToastrService) {
-    
-   }
+
+  constructor(private leadService: AuthService, 
+              private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.user=JSON.parse(sessionStorage.getItem('userData'));
+    this.user=JSON.parse(localStorage.getItem('userData'));
     console.log(this.user);
-    this.createForm();
-   
+    this.initForm();
   }
 
-  createForm() {
-    this.editForm = this.fb.group({
-      first_name: [this.user.data.first_name, 
-        Validators.compose([
-        Validators.required,
-        Validators.maxLength(150),
-      ])],
-      last_name: [this.user.data.last_name, 
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(150),
-        ])],
-      full_name: [this.user.data.full_name, 
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(150),
-        ])],
-      email: [this.user.data.email, 
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/),
-          Validators.maxLength(100)
-      ])],
+  initForm() {
+    let first_name: string;
+    let last_name: string;
+    let fullname: string;
+    let email: string;
+
+    setTimeout(() =>{
+      this.editForm.setValue({
+        first_name: this.user.data.first_name,
+        last_name: this.user.data.last_name,
+        fullname: this.user.data.first_name+' '+this.user.data.last_name,
+        email: this.user.data.email
+      })
+    });
+
+    this.editForm = new FormGroup({
+      'first_name': new FormControl(first_name,[
+                                      Validators.required,
+                                      Validators.maxLength(150),
+                                    ]),
+      'last_name': new FormControl(last_name,[
+                                      Validators.required,
+                                      Validators.maxLength(150),
+                                    ]),
+      'fullname': new FormControl(fullname,[
+                                      Validators.required,
+                                      Validators.maxLength(150),
+                                    ]),
+      'email': new FormControl(email,[
+                                      Validators.required,
+                                      Validators.pattern(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/),
+                                      Validators.maxLength(100)
+                                  ]),
 
     });    
-    // this.editForm.patchValue({
-    //   full_name:'test123'
-
-    // });
   }
 
-  
   onSubmit() {
-   
     if (this.editForm.valid) {
-        const formVal = this.editForm.value;
-        const formData = new FormData();
-        formData.append('first_name', formVal.first_name);
-        formData.append('last_name', formVal.last_name);
-        formData.append('full_name', formVal.full_name);
-        formData.append('email', formVal.email);
-        this.authService.updateUserData(formData, this.user.data.id).subscribe({
-          next: (result: any) => {
-            console.log(result);
-            this.toastr.success('Hello world!', 'Toastr fun!');
-          },
-          error: err => {
-            if (err.error && err.error.error) {
-            } else {
-            }
-          },
-          complete: () => { }
+      this.leadService.updateUserData(this.editForm.value, this.user.data.id).subscribe(
+        (resData) => {
+          console.log(resData);
+          this.toastr.success('Successfull');
+        },
+        (error) => {
+          console.log(error);
+          this.toastr.error('Unsuccessfull')            
         });
-     
-    } else {
-      // if form is not valid
-      Object.keys(this.editForm.controls).forEach(field => {
-        const control = this.editForm.get(field);
-        control.markAsTouched({ onlySelf: true });
-        control.markAsDirty({ onlySelf: true });
-      });
-    }
+    } 
   }
-  
-
 }

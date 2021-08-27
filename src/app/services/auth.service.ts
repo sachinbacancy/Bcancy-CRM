@@ -14,18 +14,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, 
               private router: Router) {}
-
-  /* public addUser(user:UserModel): Observable<UserModel>{
-    return this.http.post<UserModel>(environment.baseURL+'register1',user);
-  } */
   
   public loginUser(email: string) {
     return this.http.post(environment.baseURL+"api/v1/sessions",{email:email});
   }
 
-  public updateUserData(formData, userId) {
-    return this.http.put(environment.baseURL+"api/v1/angular_user_apis/"+userId,formData);
-  }
+  public updateUserData(userDetails, userId: number) {
+    return this.http.put(environment.baseURL+"api/v1/angular_user_apis/"+userId,userDetails);
+  }  
 
   public autoLogin() {
     const socialUserData: SocialUser = JSON.parse(sessionStorage.getItem('socialUserData'));

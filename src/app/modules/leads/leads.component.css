@@ -1,0 +1,10 @@
+select{
+    display:block;
+    -webkit-appearance: menulist;
+}
+select#lead_time_4i, select#lead_time_5i{
+    display:inline;
+}
+div#time{
+    display:inline;
+}

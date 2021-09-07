@@ -29,9 +29,9 @@
     "angularx-social-login": "^3.5.7",
     "bootstrap": "^5.0.0-beta3",
     "jquery": "^3.6.0",
-    "ngx-toastr": "^14.1.0",
-    "popper.js": "^1.16.1",
     "ngx-csv-parser": "0.0.7",
+    "ngx-toastr": "^14.1.0",
+    "popper.js": "^1.12.9",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

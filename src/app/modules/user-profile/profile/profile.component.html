@@ -1,0 +1,139 @@
+<div class="site-main">
+  <div class="site-content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="white-bg pl10 pr10 pb10 pt10">
+            <div class="dynmic-tab-div-header">
+              <span class="heading">User Details</span>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="d-flex d-flex-wrap sm-justify-center">
+                  <div class="">
+                    <div id="user_pro">
+                      <img id="profile_image" class="profile-circle-main dropdown-toggle" data-toggle="dropdown"
+                        role="button" aria-haspopup="true" aria-expanded="false"
+                        src="/assets/small_demo_img.jpg">
+                    </div>
+                  </div>
+                  <div class="profile-circle-title">
+                    <div class="d-flex d-flex-wrap ">
+                      <h3 class="" id="fullname_user"><span> {{user.data.first_name}} {{user.data.last_name}}</span></h3>
+                      <span style="font-size:13px;display:block;">
+                        <a   data-toggle="modal" data-target="#exampleModal">
+                          <i class="fa fa-pencil" ></i>
+                        </a>
+                      </span>
+                    </div>
+                    <span style="font-size:13px;display:block;" id="user_email_id">{{user.data.email}} </span>
+                    <div class="super-admin-title mt5">
+                      <span>{{user.data.role}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt20">
+                  <div id="user-details" class="contact-show edit-user-company">
+                    <div class="col-sm-12 mt10">
+                      <div class="d-flex d-flex-wrap editable" data-id="18" data-klass="User" data-field="first_name">
+                        <label>First Name: </label>
+                        <span class="info-dynamic-data value">{{user.data.first_name}}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 mt15 ">
+                      <div class="d-flex d-flex-wrap editable" data-id="18" data-klass="User" data-field="last_name">
+                        <label>Last Name: </label>
+                        <span class="info-dynamic-data value">{{user.data.last_name}}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 mt15 ">
+                      <div class="d-flex d-flex-wrap editable" data-id="18" data-klass="User" data-field="last_name">
+                        <label>Full Name: </label>
+                        <span class="info-dynamic-data value">{{user.data.first_name}} {{user.data.last_name}}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 mt15 ">
+                      <div class="d-flex d-flex-wrap editable" data-id="18" data-klass="User" data-field="email">
+                        <label>Email: </label>
+                        <span class="info-dynamic-data value" data-confirm-before-ajax="true"
+                          data-name="email">{{user.data.email}}</span>
+                      </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">User</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- user details -->
+                            <div class="row block-ui-box m-t-5 m-r-5">
+                              <p class="title">
+                                </p><h3 class="title m-l-10 p-b-5">User Details</h3>
+                              <p></p>
+                              <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                                <div class="col-md-6 mt15">
+                                  <div class="form-group">
+                                    <label for="user_first_name">First name</label>
+                                    <input class="form-control" required="required" type="text" formControlName="first_name" name="first_name" id="first_name">
+                                    <span *ngIf="!profileForm.controls['first_name'].valid && profileForm.controls['first_name'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['first_name'].hasError('nameIsForbidden')"> This first name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['first_name'].hasError('required')"> This field is required!</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 mt15">
+                                  <div class="form-group">
+                                    <label for="user_last_name">Last name</label>
+                                    <input class="form-control" type="text" name="last_name" formControlName="last_name" id="last_name">
+                                    <span *ngIf="!profileForm.controls['last_name'].valid && profileForm.controls['last_name'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['last_name'].hasError('nameIsForbidden')"> This last name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['last_name'].hasError('required')"> This field is required!</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 mt15">
+                                  <div class="form-group">
+                                    <label for="user_fullname">Fullname</label>
+                                    <input class="form-control" type="text" name="full_name" formControlName="fullname"  id="fullname">
+                                    <span *ngIf="!profileForm.controls['fullname'].valid && profileForm.controls['fullname'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['fullname'].hasError('nameIsForbidden')"> This full name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['fullname'].hasError('required')"> This field is required!</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 mt15">
+                                  <div class="form-group">
+                                    <label for="user_email">Email</label>
+                                    <input class="form-control" type="text" name="email" formControlName="email" id="user_email">
+                                    <span *ngIf="!profileForm.controls['email'].valid && profileForm.controls['email'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['email'].hasError('nameIsForbidden')"> This email name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['email'].hasError('required')"> This field is required!</span>
+                                    </span>
+                                  </div>
+                                </div>
+                                <input type="hidden" name="edit_name" id="edit_name" value="edit_name">
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                  <input type="submit" name="commit" value="Save" class="btn btn-success" data-disable-with="Save">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

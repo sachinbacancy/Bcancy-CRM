@@ -1,0 +1,109 @@
+<div class="site-content">
+  <div class="dynmic-tab-div">
+    <div class="row dashboard-page">
+      <div class="col-sm-12">
+        <div class="dynmic-tab-div-header">
+          <div class="heading dashboard_toggle cursor-pointer">DASHBOARD</div>
+        </div>
+        <div class="dynmic-tab-div-data">
+          <form action="/filte_date" method="get" accept-charset="UTF-8" >
+            <div class="dashboard_filter_maindiv">
+              <div class="dashboard_filter_innerdiv">
+                <div style="float:left">
+                  <b>From:</b>
+                </div>
+                <div style="float:left">
+                  <input id="from_date" required="true" name="from_date" value="" type="date" class="form-control"/>
+                </div>
+              </div>
+              <div class="dashboard_filter_innerdiv">
+                <div style="float:left">
+                  <b>To:</b>
+                </div>
+                <div style="float:left">
+                  <input id="to_date" required="true" name="to_date" value="" type="date" class="form-control"/>
+                </div>
+              </div>
+              <div class="dashboard_filter_innerdiv">
+                <div style="float:left">
+                  <b>Source:</b>
+                </div>
+                <div style="float:left">
+                    <select value="" name="source" label="source" class="form-control" id='ifpaid'>
+                      <option value="All" >All</option>
+                      <option value="Paid" >Paid</option>
+                      <option value="Organic" >Organic</option>
+                      <option value="Direct" >Direct</option>
+                    </select>
+                </div>
+              </div>
+              <div class="dashboard_filter_innerdiv" id="if_paid_filter" style="display:none">
+                <div style="float:left">
+                  <b>If Paid:</b>
+                </div>
+                <div style="float:left">
+                  <select name="if_paid" id="if_paid" class="form-control">
+                    <option value="All">All</option>
+                    <option value="Adword">Adword</option>
+                    <option value="Clutch">Clutch</option>
+                    <option value="Direct call">Direct call</option>
+                    <option value="Linkdin">Linkdin</option>
+                    <option value="Quora">Quora</option></select>
+                </div>
+              </div>
+              <div class="dashboard_filter_innerdiv">
+                <div style="float:left">
+                  <b>Is Closed:</b>
+                </div>
+                <div style="float:left">
+                  <select value="" name="closed" label="closed" class="form-control">
+                    <option value="All" >All</option>
+                    <option value="Yes" >Yes</option>
+                    <option value="No" >No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="dashboard_filter_innerdiv">
+                <input name="commit" class="btn btn-primary" type="submit" value="Search" data-disable-with="Search"/>
+              </div>
+            </div>
+          </form><br/>
+          <div class="table table-responsive">
+            <table class="common-data-table table table-striped table-bordered display responsive no-wrap dataTable no-footer dtr-inline">
+              <tr>
+                <td class="dashboard_table_header">Group-A</td>
+                  <td class="dashboard_table_header">United States</td>
+                  <td class="dashboard_table_total"><b>Total</b></td>
+              </tr>                
+              <tr>
+                <th>Ruby on Rails</th>
+                <td style="text-align:center" data-toggle="tooltip" data-placement="bottom" title="[&quot;&quot;, &quot;dhruv&quot;, &quot;&quot;]">3</td>
+                <td class="dashboard_table_total"><b>3</b></td>
+              </tr>
+              <tr>
+                <th>Saleforce Lighting</th>
+                <td style="text-align:center" data-toggle="tooltip" data-placement="bottom" title="-">-</td>
+                <td class="dashboard_table_total"><b>0</b></td>
+              </tr>
+              <tr>
+                <td style="background:yellow"><b>Total</b></td>
+                <td class="dashboard_table_total"><b>3</b></td>
+                <td class="dashboard_table_totally"><b>3</b></td>
+              </tr>
+            </table><br/>
+            <table class="common-data-table table table-striped table-bordered display responsive no-wrap dataTable no-footer dtr-inline">
+              <tr>
+                <td class="dashboard_table_header">Group-B</td>
+                <td class="dashboard_table_total"><b>Total</b></td>
+              </tr>
+              <tr>
+                <td style="background:yellow"><b>Total</b></td>
+                <td class="dashboard_table_totally"><b>0</b></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

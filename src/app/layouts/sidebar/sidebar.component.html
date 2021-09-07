@@ -1,0 +1,61 @@
+<div class="site-left-sidebar">
+  <div class="sidebar-backdrop"></div>
+  <div class="custom-scrollbar">
+    <ul class="sidebar-menu">
+      <li class="with-sub dropdown-none open active">
+        <a  (click)="onSelectingDashboard()" aria-haspopup="true">
+          <span class="menu-icon">
+            <i class="fa" aria-hidden="true">
+              <img src="/assets/sidebar/ic_dashboard.svg" />
+            </i>
+          </span>
+          <span class="menu-text"> Dashboard</span>
+        </a>
+        <ul class="sidebar-submenu collapse">
+          <li class="menu-subtitle menu-subtitle-nodropdown">
+            <a (click)="onSelectingDashboard()">Dashboard</a>
+          </li>
+        </ul>
+      </li>
+
+        <li class="with-sub ">
+          <a href="javascript:void(0)" aria-haspopup="true">
+            <span class="menu-icon">
+              <i class="fa " aria-hidden="true">
+                <img src="/assets/sidebar/ic_employees.svg" />
+              </i>
+            </span>
+            <span class="menu-text">Leads</span>
+          </a>
+          <ul class="sidebar-submenu collapse">
+            <li class="menu-subtitle">Leads</li>
+            <li>
+                <a aria-haspopup="true" class="" (click)="onSelectingLead()">
+                  <span class="menu-text">Lead</span>
+                </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="with-sub ">
+          <a href="javascript:void(0)" aria-haspopup="true">
+            <span class="menu-icon">
+              <i class="fa" aria-hidden="true">
+                <img src="/assets/sidebar/ic_settings.svg" />
+              </i>
+            </span>
+            <span class="menu-text">Settings </span>
+          </a>
+          <ul class="sidebar-submenu collapse">
+            <li class="menu-subtitle">Settings</li>
+            <li>
+              <a aria-haspopup="true" class="" (click)="onSelectingSettings()">
+                <span class="menu-text">CRM Settings</span>
+              </a>
+            </li>
+            <li></li>
+          </ul>
+        </li>
+    </ul>
+  </div>
+</div>

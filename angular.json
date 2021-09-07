@@ -24,10 +24,21 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/fonts/css/font-awesome.min.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/@popperjs/core/dist/umd/popper.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -63,7 +74,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Bcancy-CRM:build"
+            "browserTarget": "Bcancy-CRM:build",
+            "proxyConfig": "src/proxy.conf.json"
+
           },
           "configurations": {
             "production": {
@@ -122,7 +135,7 @@
       }
     }
   },
-  "defaultProject": "Bcancy-CRM",
+  "defaultProject": "Bacancy-CRM",
   "cli": {
     "analytics": false
   }

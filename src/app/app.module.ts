@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './modules/auth/login/login.component';
-import { HomeComponent } from './modules/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
+import { LayoutsModule } from './layouts/layouts.module';
+import { CoreModule } from './core/core.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,16 @@ import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CoreModule,
     FormsModule,
     SocialLoginModule,
-    HttpClientModule
+    HttpClientModule,
+    LayoutsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [{
+  providers: [
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: true, //keeps the user signed in

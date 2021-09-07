@@ -2,9 +2,6 @@
 <html>
   <head>
     <title>Bacancy CRM</title>
-    <meta name="csrf-param" content="authenticity_token" />
-    <meta name="csrf-token" content="wkJwHuYeWgkxIV8MmheqG+TtT/ZmG7pioCd98bN0DNnrvy5TbYPDsVCJVgMJSNzJY4ZzXjvRDsd59QjDGPORdg==" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
     <link rel="stylesheet" media="all" href="/assets/registration.css" data-turbolinks-track="reload" />
     <link rel="icon" type="image/png" href="/assets/launcher.png" />
     <script src="/assets/registration.js" data-turbolinks-track="reload"></script>
@@ -12,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <div id="layout-flash-container"></div>
+     <div id="layout-flash-container"></div>
     <div class='flash-messages' id="flash-msg">
       <div class="alert alert-notice">
         <button type="button" 
@@ -50,7 +47,7 @@
                   <div class="login-cmn-wrapper text-center">
                     <p class="sign-title"></p>
                     <div class="row">
-                      <a class="btn btn-block btn-lg btn-rounded btn-googleplus" (click)="signIn()">
+                      <a class="btn btn-block btn-lg btn-rounded btn-googleplus" (click)="signInWithGoogle()">
                         <i class="fa fa-google-plus fa-fw"></i> Sign in with Google
                       </a>
                     </div>

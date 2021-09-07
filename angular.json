@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-toastr/toastr.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/fonts/css/font-awesome.min.css",
               "node_modules/ngx-toastr/toastr.css",
@@ -134,7 +135,7 @@
       }
     }
   },
-  "defaultProject": "Bcancy-CRM",
+  "defaultProject": "Bacancy-CRM",
   "cli": {
     "analytics": false
   }

@@ -1,0 +1,65 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">User</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+          <!-- user details -->
+          <div class="row block-ui-box m-t-5 m-r-5">
+            <p class="title">
+              </p><h3 class="title m-l-10 p-b-5">User Details</h3>
+            <p></p>
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+              <div class="col-md-6 mt15">
+                <div class="form-group">
+                  <label for="user_first_name">First name</label>
+                  <input class="form-control" required="required" type="text" formControlName="first_name" name="first_name" id="first_name">
+                  <span *ngIf="!editForm.controls['first_name'].valid && editForm.controls['first_name'].touched" class="help-block">
+                    <span *ngIf="editForm.controls['first_name'].hasError('nameIsForbidden')"> This first name is invalid!</span>
+                    <span *ngIf="editForm.controls['first_name'].hasError('required')"> This field is required!</span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 mt15">
+                <div class="form-group">
+                  <label for="user_last_name">Last name</label>
+                  <input class="form-control" type="text" name="last_name" formControlName="last_name" id="last_name">
+                  <span *ngIf="!editForm.controls['last_name'].valid && editForm.controls['last_name'].touched" class="help-block">
+                    <span *ngIf="editForm.controls['last_name'].hasError('nameIsForbidden')"> This last name is invalid!</span>
+                    <span *ngIf="editForm.controls['last_name'].hasError('required')"> This field is required!</span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 mt15">
+                <div class="form-group">
+                  <label for="user_fullname">Fullname</label>
+                  <input class="form-control" type="text" name="full_name" formControlName="fullname"  id="fullname">
+                  <span *ngIf="!editForm.controls['fullname'].valid && editForm.controls['fullname'].touched" class="help-block">
+                    <span *ngIf="editForm.controls['fullname'].hasError('nameIsForbidden')"> This full name is invalid!</span>
+                    <span *ngIf="editForm.controls['fullname'].hasError('required')"> This field is required!</span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6 mt15">
+                <div class="form-group">
+                  <label for="user_email">Email</label>
+                  <input class="form-control" type="text" name="email" formControlName="email" id="user_email">
+                  <span *ngIf="!editForm.controls['email'].valid && editForm.controls['email'].touched" class="help-block">
+                    <span *ngIf="editForm.controls['email'].hasError('nameIsForbidden')"> This email name is invalid!</span>
+                    <span *ngIf="editForm.controls['email'].hasError('required')"> This field is required!</span>
+                  </span>
+                </div>
+              </div>
+              <input type="hidden" name="edit_name" id="edit_name" value="edit_name">
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                <input type="submit" name="commit" value="Save" class="btn btn-success" data-disable-with="Save">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

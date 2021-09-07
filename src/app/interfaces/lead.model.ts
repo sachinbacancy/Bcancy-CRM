@@ -12,7 +12,7 @@ export interface LeadModel{
     skype?: string,
     chat_description?: string,
     technology?: string,
-    domain?: 0,
+    domain?: string,
     landing_page_url?: string,
     city?: string,
     state?: string,
@@ -45,5 +45,6 @@ export interface LeadModel{
     blog_url?: string,
     user_id?: string,
     priority?: string,
-    device?: string
+    device?: string,
+    company_name?:string
 }

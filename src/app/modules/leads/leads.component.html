@@ -2,46 +2,927 @@
 <app-sidebar></app-sidebar>
 <div class="site-main">
   <div class="site-content">
-    <div class="site-content-head"> 
+    <div class="site-content-head">
       <div class="row">
         <div class="col-sm-12">
           <div class="1-menu">
-            <span class="main-menu-sitecontent "> Leads </span>
-            <!--<a class="main-menu-sitecontent" href="/leads"› All </a>-->
+            <span class="main-menu-sitecontent"> Leads </span>
           </div>
           <div class="pull-right">
-            <a href="javascript:void(0)_" class="site-content-head-btn" id="destroy_all"> Delete </a>
-            <a href="javascript:void(0)_" class="site-content-head-btn" id="assign_all"> Assign </a>
-            <a class="site-content-head-btn" data-remote="true" href="/leads/new"> + Add New Leads </a>
-            <a class="site-content-head-btn" href="/leads/import leads"> Import </a>
-            <a class="site-content-head-btn" href="jleads.csv"> Export To Excel </a>
-            <!-- <a href="" class="site-content-head-btn">Import Leads</a> -->
-            <!-- <a href="" class="site-content-head-btn">Export To Excel</a> -->
-            <a class="site-content-head-btn" href="http://staging-crm.bacancy.com/sample format.csv">Sample CSV</a>
-            <a 
-              href="javascript:void(0" 
-              class="dropdown-toggle site-content-head-btn" 
-              data-toggle="dropdown" 
-              role="button" 
-              aria-haspopup="true" 
-              aria-expanded="false">Actions</a>
-            <ul class="dropdown-menu">...</ul>
-            <!-- <a href="" class="site-content-head-btn">Actions</a> -->
-          </div> 
+            <a
+              href="javascript:void(0)_"
+              class="site-content-head-btn"
+              id="assign_all"
+            >
+              Assign
+            </a>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#myModal"
+            >
+              + Add New Leads
+            </button>
+            <a class="site-content-head-btn" routerLink="import-leads">
+              Import
+            </a>
+            <a
+              href="javascript:void(0"
+              class="dropdown-toggle site-content-head-btn"
+              data-toggle="dropdown"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Actions</a
+            >
+            <ul class="dropdown-menu">
+              ...
+            </ul>
+          </div>
         </div>
-      </div> 
+      </div>
     </div>
-    <div class="site-content-head" >Total Number of rows: {{leads.length}} <span id="count"></span></div><br/>
+    <div class="site-content-head">
+      Total Number of rows: {{ leads.length }} <span id="count"></span>
+    </div>
+    <br />
     <div class="table-responsive">
-      <ejs-grid #grid (actionBegin)="actionBegin($event)" (actionComplete)="actionComplete($event)" (cellEdit)="cellEdit($event)" [dataSource]='leads' [allowPaging]='true' [allowFiltering]='true' [allowSelection]='true' [allowSorting]='true' [pageSettings]='pageSettings' [selectionSettings]='selectionSettings' [filterSettings]='filterOption' [editSettings]='editSettings' [toolbar]='toolbar' height="100%" width="100%"> 
+      <ejs-grid
+        #grid
+        id="Grid"
+        (actionBegin)="actionBegin($event)"
+        (actionComplete)="actionComplete($event)"
+        (toolbarClick)="toolbarClick($event)"
+        [dataSource]="leads"
+        [allowExcelExport]="true"
+        [allowPaging]="true"
+        [allowFiltering]="true"
+        [allowSelection]="true"
+        [allowSorting]="true"
+        [pageSettings]="pageSettings"
+        [selectionSettings]="selectionSettings"
+        [filterSettings]="filterOption"
+        [editSettings]="editSettings"
+        [toolbar]="toolbar"
+        height="100%"
+        width="100%"
+      >
         <e-columns>
-          <e-column type='checkbox' width='50'></e-column>
-          <e-column headerText='Actions    ' width='110' [commands]='commands'></e-column>
-          <e-column *ngFor="let field of fieldOrder" [field]='field' [headerText]='getHeader(field)' width="200" minWidth='50' maxWidth="180">
-            <ejs-daterangepicker placeholder='Select a range' [startDate]='start' [endDate]='end'></ejs-daterangepicker>
+          <e-column type="checkbox" width="50"></e-column>
+          <e-column
+            headerText="Actions    "
+            width="110"
+            [commands]="commands"
+          ></e-column>
+          <e-column
+            *ngFor="let field of fieldOrder"
+            [field]="field"
+            [headerText]="getHeader(field)"
+            width="200"
+            minWidth="50"
+            maxWidth="180"
+          >
+            <ejs-daterangepicker
+              placeholder="Select a range"
+              [startDate]="start"
+              [endDate]="end"
+            ></ejs-daterangepicker>
           </e-column>
         </e-columns>
-      </ejs-grid>   
+      </ejs-grid>
+    </div>
+    <div id="modalContainer">
+      <div
+        class="modal"
+        id="myModal"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+            <Form 
+            [formGroup]="leadForm" 
+            (ngSubmit)="onSubmitForm()"
+            class="new_lead"
+            id="new_lead"
+            enctype="multipart/form-data"
+            action="/leads accept-charset= UTP-8"
+            data-remote="true"
+            method="post"
+          >
+            <input name="utf8" type="hidden" value="✓" />
+            <div id="flash_message"></div>
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Leads</h4>
+                <div class="pull-right">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    x
+                  </button>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div id="lead-fields">
+                  <div class="row block-ui-box m-t-5 m-r-5">
+                    <p class="title"></p>
+                    <h3 class="title m-1-10 p-b-5">Lead Details</h3>
+                    <p></p>
+                  </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="SR_No">Sr no</label>
+                        <span class="required"> </span>
+                        <input
+                          class="form-control sr_no"
+                          placeholder="Sr No"
+                          autocomplete="off"
+                          type="text"
+                          formControlName="sr_no"
+                          id="lead_sr_no"
+                        />
+                      </div>
+                    </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Date">Date</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control datepicker"
+                        placeholder="Date"
+                        autocomplete="off"
+                        todayhighlight="true"
+                        type="date"
+                        formControlName="date"
+                        id="lead_date"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Source">Source</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control dropdown"
+                        formControlName="source"
+                        id="lead_source"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        (change)="sourceSelected($event.target.value)"
+                      >
+                        <option value="">Source</option>
+                        <option *ngFor="let source of sourceOptions">{{source}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="ifPaid">
+                    <div class="form-group">
+                      <label for="If_Paid">If Paid</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="if_paid"
+                        id="lead_if_paid"
+                      >
+                        <option value="">If Paid</option>
+                        <option *ngFor="let paid of paidOptions">{{ paid }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="ifOrganic">
+                    <div class="form-group">
+                      <label for="If_Organic">If Organic</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="if_organic"
+                        id="lead_if_organic"
+                        (change)="onMediumSelect($event.target.value)"
+                      >
+                        <option value="">If Organic</option>
+                        <option *ngFor="let organic of organicOptions">{{ organic}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="medium">
+                    <div class="form-group">
+                      <label for="Person_name">Person Name</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control medium_name"
+                        placeholder="formControlName"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="medium_name"
+                        id="lead_medium_name"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="medium">
+                    <div class="form-group">
+                      <label for="Medium_URL">Medium URL</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control landing_url"
+                        placeholder="URL"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="blog_url"
+                        id="lead_medium_url"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Support_Desk">Support Desk</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="support_desk"
+                        id="lead_support_desk"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        (change)="onSupportDeskSelect($event.target.value)"
+                      >
+                        <option value="">Support Desk</option>
+                        <option *ngFor="let supportDesk of supportDeskOptions">{{ supportDesk }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="zopim">
+                    <div class="form-group">
+                      <label for="Zopim_Id">Zopim ID</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control zopim_id"
+                        placeholder="Zopim Id"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="zopim_id"
+                        id="lead_zopim_id"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Live_Chat_Handle_Name">Live Chat Handle Name</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="live_chat_handle_name"
+                        id="lead_live_chat_handle_name"
+                      >
+                        <option value="">Live Chat Handle Name</option>
+                        <option *ngFor="let chatHandle of chatHandleOptions">{{ chatHandle }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Client_Name">Client Name</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control client_name"
+                        placeholder="Client Name"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="client_name"
+                        id="lead_client_name"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Client_Email">Client Email</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control client_email"
+                        placeholder="Client Email"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="client_email"
+                        id="lead_client_email"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Corporate">Corporate</label>
+                      <span class="required"> </span>
+                      <div class="radio-lbl radio-oneline table_align">
+                        <label class="radio">
+                          Yes
+                          <input
+                            type="radio"
+                            value="Yes"
+                            formControlName="corporate"
+                            id="lead_corporate_yes"
+                          />
+                          <span class="checkround"></span>
+                        </label>
+                        <label class="radio">
+                          No
+                          <input
+                            type="radio"
+                            value="No"
+                            formControlName="corporate"
+                            id="lead_corporate_no"
+                          />
+                          <span class="checkround"></span>
+                        </label>
+                        <label class="radio">
+                          N/A
+                          <input
+                            type="radio"
+                            value="N/a"
+                            formControlName="corporate"
+                            id="lead_corporate_no"
+                          />
+                          <span class="checkround"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Client_Phone_No">Client Phone No</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control phone_no"
+                        placeholder="Primary Phone"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="phone_no"
+                        id="lead_phone_no"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Client_Skype">Client Skype</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control"
+                        placeholder="Skype"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="skype"
+                        id="lead_skype"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Client-Chat_Description"
+                        >Client-Chat Description</label
+                      >
+                      <span class="required"> </span>
+                      <textarea
+                        class="form-control"
+                        placeholder="Description"
+                        rows="4"
+                        formControlName="chat_description"
+                        id="lead_chat_description"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Country">Country</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="country"
+                        id="lead_country"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        (change)="onChangeCountry($event.target.value)"
+                      >
+                        <option value="">Country</option>
+                        <option *ngFor="let country of countries">{{ country }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="State">State</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control state_option"
+                        formControlName="state"
+                        id="lead_state"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        (change)="onChangeState($event.target.value)"
+                      >
+                        <option value="">State</option>
+                        <option *ngFor="let state of states">{{ state }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="City">City</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control city_option"
+                        formControlName="city" 
+                        id="lead_city"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">City</option>
+                        <option *ngFor="let city of cities">{{ city }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Technology">Technology</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="technology"
+                        id="lead_technology"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Technology</option>
+                        <option *ngFor="let tech of techOptions">{{ tech }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Domain">Domain</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="domain"
+                        id="1ead_domain"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Domain</option>
+                        <option *ngFor="let domain of domainOptions">{{ domain }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Landing_Page_Url">Landing Page URL</label>
+                      <span class="required"> </span>
+                      <input
+                        class="form-control landing_url"
+                        placeholder="Landing Page Url"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="landing_page_url"
+                        id="lead_landing_page_url"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Assign_To">Assign To</label>
+                      <span class="required"> </span>
+                      <select
+                        class="form-control"
+                        formControlName="user_id"
+                        id="lead_user_id"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Assign To</option>
+                        <option *ngFor="let userId of userIdOptions">{{ userId }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Status">Status</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="lead_status"
+                        id="lead_lead_status"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Status</option>
+                        <option *ngFor="let leadStatus of leadStatusOptions">{{ leadStatus }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Is_Closed">Is Closed</label>
+                      <span class="required"> </span>
+                      <div class="radio-lbl radio-oneline table_align" (change)="onIsClosed($event.target.value)">
+                        <label class="radio">
+                          Yes
+                          <input
+                            type="radio"
+                            value="Yes"
+                            formControlName="is_closed"
+                            id="lead_is_closed_yes"
+                          />
+                          <span class="checkround"></span>
+                        </label>
+                        <label class="radio">
+                          No
+                          <input
+                            type="radio"
+                            value="No"
+                            formControlName="is_closed"
+                            id="lead_is_closed_no"
+                          />
+                          <span class="checkround"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="isClosed">
+                    <div class="form-group">
+                      <label for="Closed_Date">Closed Date</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control datepicker"
+                        placeholder="Date"
+                        autocomplete="off"
+                        todayhighlight="true"
+                        type="text"
+                        formControlName="closed_date"
+                        id="lead_closed_date"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Lead_Quality">Lead Quality</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="lead_quality"
+                        id="lead_lead_quality"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Lead Quality</option>
+                        <option *ngFor="let leadQuality of leadQualityOptions">{{ leadQuality }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Campaign_Name">Campaign Name</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control campaign_name"
+                        placeholder="Campaign Name"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="campaign_name"
+                        id="lead_campaign_name"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Ad_Group">Ad Group</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control ad_group"
+                        placeholder="Ad Group"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="ad_group"
+                        id="lead_ad_group"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Ads_No">Ads No</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control ads_no"
+                        placeholder="Ads No"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="ads_no"
+                        id="lead_ads_no"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Keyword">Keyword</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control keyword"
+                        placeholder="Keyword"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="keyword"
+                        id="lead_keyword"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Search_Query">Search Query</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control search query"
+                        placeholder="Search Query"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="search_query"
+                        id="lead_search_query"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Age">Age</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="age"
+                        id="lead_age"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Age</option>
+                        <option *ngFor="let age of ageOptions">{{ age }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Gender">Gender</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="gender"
+                        id="lead_gender"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Gender</option>
+                        <option *ngFor="let gender of genderOptions">{{ gender }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Household_Income">Household Income</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="household_income" 
+                        id="lead_household_income"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Household Income</option>
+                        <option *ngFor="let income of incomeOptions">{{ income }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Hotjar Video_Links">Hotjar Video Links</label>
+                      <span class="required"></span>
+                      <input
+                        class="form-control hotjar_video_links"
+                        placeholder="Hotjar Video Links"
+                        autocomplete="off"
+                        type="text"
+                        formControlName="hotjar_video_links"
+                        id="lead_hotjar_video_links"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Operating_System">Operating System</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="operating_system"
+                        id="lead_operating_system"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Operating System</option>
+                        <option *ngFor="let os of osOptions">{{ os }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Screen_Resolution">Screen Resolution</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        formControlName="screen_resolution"
+                        id="lead_screen_resolution"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Screen Resolution</option>
+                        <option *ngFor="let screen of screenResolutionOptions">{{ screen }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Email_Status">Email Status</label>
+                      <span class="required"></span>
+                      <select
+                        class="form-control"
+                        id="status_"
+                        formControlName="email_status"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="">Email Status</option>
+                        <option *ngFor="let emailStatus of emailStatusOptions">{{ emailStatus }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="Time">Time</label>
+                      <span class="required"></span>
+                      <div class="time" id="time">
+                      <select id="lead_time_4i" formControlName="time">
+                        <option value="00" selected="selected">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                      </select>
+                      <select id="lead_time_5i" formControlName="time">
+                        <option value="00" selected="selected">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                      </select>
+                      </div>
+                    </div>
+                </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="Prioity">Prioity</label>
+                        <span class="required"></span>
+                        <select
+                          class=" form-control"
+                          formControlName="priority"
+                          id="lead_priority"
+                          tabindex="-1"
+                          aria-hidden="true"
+                        >
+                          <option value="">Priority</option>
+                          <option *ngFor="let priority of priorityOptions">{{ priority }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="Device">Device</label>
+                        <span class="required"></span>
+                        <select
+                          class=" form-control"
+                          formControlName="device"
+                          id="lead_device"
+                          tabindex="1"
+                          aria-hidden="true"
+                        >
+                          <option value="">Device</option>
+                          <option *ngFor="let device of deviceOptions">{{ device }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="Company_name">Company Name</label>
+                        <span class="required"></span>
+                        <input
+                          class="form-control company_name"
+                          placeholder="Company Name"
+                          autocomplete="off"
+                          type="text"
+                          formControlName="company_name"
+                          id="lead_company_name"
+                        />
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  data-dismiss="modal"
+                  style="border:1x black"
+                >
+                  Close
+                </button>
+                <input
+                  type="submit"
+                  name="commit"
+                  value="Create Lead"
+                  class="btn btn-success"
+                  data-disable-with="Create Lead"
+                />
+              </div>
+            </div>
+          </Form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

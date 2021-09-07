@@ -18,7 +18,7 @@ import { map, tap } from 'rxjs/operators';
         map((socialUser: SocialUser) => !!socialUser),
         tap((isLoggedIn: boolean) => {
           if (!isLoggedIn) {
-            this.router.navigate(['auth']);
+            this.router.navigate(['login']);
           }
         })
       );

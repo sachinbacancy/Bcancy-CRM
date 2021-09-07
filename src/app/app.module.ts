@@ -7,9 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
 import { LayoutsModule } from './layouts/layouts.module';
 import { CoreModule } from './core/core.module';
-import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,9 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SocialLoginModule,
     HttpClientModule,
     LayoutsModule,
-    BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

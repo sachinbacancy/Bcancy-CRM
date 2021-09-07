@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(this.socialUser.email).subscribe(resData =>{
         console.log(resData);
         this.leadsService.user.next(resData);
-        sessionStorage.setItem('userData', JSON.stringify(resData));
+        localStorage.setItem('userData', JSON.stringify(resData));
         this.router.navigate(['home']);
       },
       (error)=>{

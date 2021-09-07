@@ -1,0 +1,80 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="site-main">
+    <div class="site-content">
+      <div class="site-content-head">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="l-menu">
+              <span class="main-menu-sitecontent">Leads</span>
+              <span class="sub-menu-sitecontent m-x-10"> <i class="fa fa-angle-right"></i> </span>
+              <span class="sub-menu-sitecontent"> Import CSV to leads</span>
+            </div>
+            <div class="pull-right">
+              <a routerLink="/leads" class="btn button-success">Back</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cmn-tab-div">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="site-content-data ">
+              <div id="lead-list" class="table-list">
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <div class="form-group">
+                            <label>Select File</label> 
+                            <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" /> 
+                            <p>Please Select CSV file only.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <button class="btn btn-success" (click)="onUploadCSV()">Upload CSV</button>
+                        <!-- <%= link_to "Sample CSV", root_url + "/import-example.csv" , class: 'site-content-head-btn' %> -->
+                    </div>
+                </div>
+              </div><!-- 
+              <div class="table-responsive">
+                <table>
+                  <th *ngFor="let header of csvRecords"></th>
+                </table>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $(".dropdown-toggle").dropdown();
+      $('.table-responsive').on('show.bs.dropdown', function () {
+         $('.table-responsive').css( "overflow", "inherit" );
+      });
+  
+      $('.table-responsive').on('hide.bs.dropdown', function () {
+           $('.table-responsive').css( "overflow", "auto" );
+      });
+  
+  
+    });
+    function validateFiles(inputFile) {
+      var extErrorMessage = "Only CSV file with extension: .csv is allowed";
+      var allowedExtension = ["csv"];
+      var extName;
+      var extError = false;
+      $.each(inputFile.files, function() {
+        extName = this.name.split('.').pop();
+        if ($.inArray(extName, allowedExtension) == -1) {extError=true;};
+      });
+      if (extError) {
+        window.alert(extErrorMessage);
+        $(inputFile).val('');
+      };
+    }
+  </script>
+  

@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-add-lead',
+  templateUrl: './add-lead.component.html',
+  styleUrls: ['./add-lead.component.css']
 })
-export class ProfileComponent implements OnInit {
-  public user:any;
-  public profileForm : FormGroup;
+export class AddLeadComponent implements OnInit {
 
-  constructor(private authService: AuthService, 
-              private toasterService: ToastrService) {}
+  public user:any;
+  editForm : FormGroup;
+
+  constructor(private leadService: AuthService, 
+              private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.user=JSON.parse(localStorage.getItem('userData'));
@@ -28,7 +29,7 @@ export class ProfileComponent implements OnInit {
     let email: string;
 
     setTimeout(() =>{
-      this.profileForm.setValue({
+      this.editForm.setValue({
         first_name: this.user.data.first_name,
         last_name: this.user.data.last_name,
         fullname: this.user.data.first_name+' '+this.user.data.last_name,
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
       })
     });
 
-    this.profileForm = new FormGroup({
+    this.editForm = new FormGroup({
       'first_name': new FormControl(first_name,[
                                       Validators.required,
                                       Validators.maxLength(150),
@@ -59,16 +60,17 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.profileForm.valid) {
-      this.authService.updateUserData(this.profileForm.value, this.user.data.id).subscribe(
+    /* if (this.editForm.valid) {
+      this.leadService.updateUserData(this.editForm.value, this.user.data.id).subscribe(
         (resData) => {
           console.log(resData);
-          this.toasterService.success('Successfull');
+          this.toastr.success('Successfull');
         },
         (error) => {
           console.log(error);
-          this.toasterService.error('Unsuccessfull')            
+          this.toastr.error('Unsuccessfull')            
         });
-    } 
+    }  */
   }
+
 }

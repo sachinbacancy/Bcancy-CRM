@@ -10,30 +10,15 @@
               <div class="col-md-12">
                 <div class="d-flex d-flex-wrap sm-justify-center">
                   <div class="">
-                    <!-- profile image -->
                     <div id="user_pro">
                       <img id="profile_image" class="profile-circle-main dropdown-toggle" data-toggle="dropdown"
                         role="button" aria-haspopup="true" aria-expanded="false"
                         src="/assets/small_demo_img.jpg">
-                      <!-- <ul class="dropddropdownown-menu">
-                        <li class="dropdown-item">
-                          Remove Image (delete call)
-                          <a data-remote="true" rel="nofollow" data-method="delete"
-                            href="/settings/users/18/remove_image">Remove Image</a>
-                        </li>
-                        <li class="dropdown-item">
-                          upload image ( upadte call)
-                          <a data-remote="true" href="/settings/new_image?image=profile_picture&amp;user_id=18">Upload
-                            Image</a>
-                        </li>
-                      </ul> -->
                     </div>
                   </div>
-                  <!-- <div class="profile-circle-main" id="profile_image"></div>  -->
                   <div class="profile-circle-title">
                     <div class="d-flex d-flex-wrap ">
                       <h3 class="" id="fullname_user"><span> {{user.data.first_name}} {{user.data.last_name}}</span></h3>
-                      <!-- user edit-->
                       <span style="font-size:13px;display:block;">
                         <a   data-toggle="modal" data-target="#exampleModal">
                           <i class="fa fa-pencil" ></i>
@@ -91,14 +76,14 @@
                               <p class="title">
                                 </p><h3 class="title m-l-10 p-b-5">User Details</h3>
                               <p></p>
-                              <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                              <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                                 <div class="col-md-6 mt15">
                                   <div class="form-group">
                                     <label for="user_first_name">First name</label>
                                     <input class="form-control" required="required" type="text" formControlName="first_name" name="first_name" id="first_name">
-                                    <span *ngIf="!editForm.controls['first_name'].valid && editForm.controls['first_name'].touched" class="help-block">
-                                      <span *ngIf="editForm.controls['first_name'].hasError('nameIsForbidden')"> This first name is invalid!</span>
-                                      <span *ngIf="editForm.controls['first_name'].hasError('required')"> This field is required!</span>
+                                    <span *ngIf="!profileForm.controls['first_name'].valid && profileForm.controls['first_name'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['first_name'].hasError('nameIsForbidden')"> This first name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['first_name'].hasError('required')"> This field is required!</span>
                                     </span>
                                   </div>
                                 </div>
@@ -106,9 +91,9 @@
                                   <div class="form-group">
                                     <label for="user_last_name">Last name</label>
                                     <input class="form-control" type="text" name="last_name" formControlName="last_name" id="last_name">
-                                    <span *ngIf="!editForm.controls['last_name'].valid && editForm.controls['last_name'].touched" class="help-block">
-                                      <span *ngIf="editForm.controls['last_name'].hasError('nameIsForbidden')"> This last name is invalid!</span>
-                                      <span *ngIf="editForm.controls['last_name'].hasError('required')"> This field is required!</span>
+                                    <span *ngIf="!profileForm.controls['last_name'].valid && profileForm.controls['last_name'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['last_name'].hasError('nameIsForbidden')"> This last name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['last_name'].hasError('required')"> This field is required!</span>
                                     </span>
                                   </div>
                                 </div>
@@ -116,9 +101,9 @@
                                   <div class="form-group">
                                     <label for="user_fullname">Fullname</label>
                                     <input class="form-control" type="text" name="full_name" formControlName="fullname"  id="fullname">
-                                    <span *ngIf="!editForm.controls['fullname'].valid && editForm.controls['fullname'].touched" class="help-block">
-                                      <span *ngIf="editForm.controls['fullname'].hasError('nameIsForbidden')"> This full name is invalid!</span>
-                                      <span *ngIf="editForm.controls['fullname'].hasError('required')"> This field is required!</span>
+                                    <span *ngIf="!profileForm.controls['fullname'].valid && profileForm.controls['fullname'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['fullname'].hasError('nameIsForbidden')"> This full name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['fullname'].hasError('required')"> This field is required!</span>
                                     </span>
                                   </div>
                                 </div>
@@ -126,9 +111,9 @@
                                   <div class="form-group">
                                     <label for="user_email">Email</label>
                                     <input class="form-control" type="text" name="email" formControlName="email" id="user_email">
-                                    <span *ngIf="!editForm.controls['email'].valid && editForm.controls['email'].touched" class="help-block">
-                                      <span *ngIf="editForm.controls['email'].hasError('nameIsForbidden')"> This email name is invalid!</span>
-                                      <span *ngIf="editForm.controls['email'].hasError('required')"> This field is required!</span>
+                                    <span *ngIf="!profileForm.controls['email'].valid && profileForm.controls['email'].touched" class="help-block">
+                                      <span *ngIf="profileForm.controls['email'].hasError('nameIsForbidden')"> This email name is invalid!</span>
+                                      <span *ngIf="profileForm.controls['email'].hasError('required')"> This field is required!</span>
                                     </span>
                                   </div>
                                 </div>

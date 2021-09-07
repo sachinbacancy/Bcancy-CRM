@@ -21,10 +21,10 @@ export class AuthService {
 
   public updateUserData(userDetails, userId: number) {
     return this.http.put(environment.baseURL+"api/v1/angular_user_apis/"+userId,userDetails);
-  }  
+  }
 
   public autoLogin() {
-    const socialUserData: SocialUser = JSON.parse(sessionStorage.getItem('socialUserData'));
+    const socialUserData: SocialUser = JSON.parse(localStorage.getItem('socialUserData'));
     if (!socialUserData) {
       return;
     }
@@ -38,12 +38,12 @@ export class AuthService {
   public logout(): void {
     this.socialUser.next(null);
     this.router.navigate(['/auth']);
-    sessionStorage.removeItem('socialUserData');
+    localStorage.removeItem('socialUserData');
   }
 
   public autoLogout(expirationDuration: number):void{
     setTimeout(()=> {
-      sessionStorage.removeItem('socialUserData');
+      localStorage.removeItem('socialUserData');
       this.socialUser.next(null);
       this.router.navigate(['/auth']);
     },expirationDuration);

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -9,19 +7,9 @@ import { SocialAuthService } from 'angularx-social-login';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public router: Router, public socialAuthServive: SocialAuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  public onSelectProfile(){
-    this.router.navigateByUrl(`/user-profile`);
-  }
-
-  
-  logout(): void {
-    console.log('test');
-    this.socialAuthServive.signOut().then(() => this.router.navigate(['/auth']));
   }
 
 }
